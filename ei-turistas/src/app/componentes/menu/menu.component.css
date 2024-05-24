@@ -1,0 +1,11 @@
+nav{
+    text-align: justify;
+}
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: var(--Blue-Darker);
+    font: 30px "Pompiere", sans-serif; 
+}

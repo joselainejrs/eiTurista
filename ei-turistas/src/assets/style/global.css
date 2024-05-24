@@ -1,0 +1,25 @@
+.titulo-da-pagina{
+    display: flex;
+    margin-top: 80px;
+}
+
+.titulo-da-pagina p{
+    color: var(--Orange-Normal-Active);
+}
+
+/* .titulo-da-pagina .text-img{
+    stroke: var(--Orange-Normal-Active);
+    /* fill: var(--Orange-Normal-Active); 
+} */
+.titulo-da-pagina img{
+    stroke: var(--Orange-Normal-Active);
+    /* fill: var(--Orange-Normal-Active); */
+}
+
+.titulo-da-pagina p{
+    margin: 15px;
+}
+
+/* font-family: "Poppins", sans-serif; */
+/* font-family: "Pompiere", sans-serif; */
+/* font-family: "Oldenburg", serif; */

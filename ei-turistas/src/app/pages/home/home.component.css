@@ -1,0 +1,28 @@
+.conteudo-busca {
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(179deg, #EFE3FF, #351959);
+    height: 100vh;
+    width: 100%;
+}
+
+.conteudo-busca img {
+    padding: 150px 0 0 0;
+}
+
+.conteudo-busca .frase {
+    margin: 50px 0;
+    color: white;
+}
+.conteudo-busca button {
+    width: 455px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 0 20px;
+    color: var(--Blue-Darker);
+    background: var(--Red-Normal);
+    font-size: 17px;
+}

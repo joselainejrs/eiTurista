@@ -1,0 +1,40 @@
+
+.campo-previsao-localidade {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+    margin-top: 50px;
+    border-radius: 20px;
+    color: var(--Blue-Light-Active);
+    background: linear-gradient(45deg, #7135BF, #351959);
+}
+
+.campo-previsao-localidade .info-primario .localidade {
+    font-weight: 300;
+    margin: 0 20px 0 0;
+}
+
+.campo-previsao-localidade .info-primario .graus {
+    font: 80px "Oldenburg", serif;
+    margin: 29px 0 0 0;
+}
+
+.campo-previsao-localidade .info-segundario {
+    font-weight: 200;
+}
+
+.campo-previsao-localidade .info-segundario .descricao {
+    font-weight: 400;
+}
+
+.campo-previsao-localidade .info-segundario p span {
+    padding-right: 5px;
+}
+
+.campo-previsao-localidade .info-segundario .temp {
+    display: flex;
+}
+
+.campo-previsao-localidade .info-segundario .temp .temp-max {
+    margin-right: 20px;
+}

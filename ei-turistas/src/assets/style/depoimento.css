@@ -1,0 +1,38 @@
+.depoimento {
+    width: 254px;
+    height: 145px;
+    padding: 15px;
+    margin: 0 0 20px 0;
+    border-radius: 10px;
+    background: var(--Blue-Light);
+    color: var(--Blue-Normal-Text);
+}
+
+.detalhes {
+    width: 240px;
+    font-size: 14px;
+    margin: 0 0px 10px 0;
+    text-align: justify;
+}
+
+.horaData {
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: 200;
+}
+
+.horaData p {
+    margin: 0;
+}
+
+.acao {
+    float: right;
+}
+
+.acao button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin: 0;
+    color: var(--Red-Normal);
+}

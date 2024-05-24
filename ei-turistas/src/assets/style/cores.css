@@ -1,0 +1,17 @@
+/* CORES QUE SÃO USADAS */
+*{
+    /* --cinza-claro: #F9F9FA;
+    --Orange-Light: #FDF2F4;
+    --Orange-Light-Hover: #FDEBEF;
+    --Orange-Light-Active: #FAD5DE; */
+    --box-shadow: #333;
+    --Red-Normal: #EF5DA8;
+    --Red-Normal-houver: #D75497;
+    --Red-Dark: #B3467E;
+    --Blue-Light: #F5EDFF;
+    --Blue-Light-Hover: #EFE3FF;
+    --Blue-Light-Active: #C1C7CB;
+    --Blue-Darker: #351959;
+    --Blue-Normal-Text: #374957;
+    /* --Blue-Darker: #542A34; */
+}

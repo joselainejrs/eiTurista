@@ -1,0 +1,77 @@
+.conteudo-busca-localidade {
+    margin: 30px auto;
+    width: 900px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+
+.conteudo-busca-localidade input {
+    color: var(--Blue-Normal-Text);
+    background: var(--Blue-Light);
+    padding-left: 20px;
+    width: 270px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+}
+
+.conteudo-busca-localidade .buscar {
+    width: 100px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    margin-left: 30px;
+    border-radius: 10px;
+    color: white;
+    background: var(--Red-Normal);
+}
+
+
+.campo-avaliação h1 {
+    color: var(--Blue-Normal-Text);
+    margin: 3rem 0 0 0;
+    font-weight: 400;
+}
+
+.campo-avaliação .campo-de-opcao {
+    display: flex;
+    justify-content: space-between;
+    width: 922px;
+}
+
+.campo-avaliação .campo-de-opcao select {
+    background: none;
+    border: none;
+    width: 150px;
+    font-size: 15px;
+    cursor: pointer;
+    color: var(--Red-Normal);
+    margin: 3rem 0 0;
+    position: relative;
+}
+
+.campo-avaliação .campo-de-opcao .btn-avaliacao{
+    color: var(--Red-Normal);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 55px 0 0 0;
+}
+
+.campo-avaliação .campo-de-opcao select:active {
+    background: none;
+    border: none;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 20rem 20rem 20rem;
+    margin-top: 3rem;
+}
+
+hr{
+    margin-top: 7rem;
+    width: 1000px;
+    color: var(--Blue-Normal-Text);
+}

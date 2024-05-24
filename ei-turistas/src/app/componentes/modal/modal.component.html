@@ -1,0 +1,28 @@
+<div id="base-modal">
+    <div class="modal">
+        <div>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <h1>Registrar Avaliações</h1>
+        <div class="conteudo-card">
+            <form action="" onsubmit="">
+                <fieldset>
+
+                    <select [formGroup]="tipoAvaliacao">
+                        <option value="" disabled>Selecione um tipo de Avaliação</option>
+                        <option *ngFor="let tipo of tipos" id="tipo" [ngValue]="tipo.value">
+                            {{ tipo.nome }}
+                        </option>
+                    </select>
+                    <br>
+                    <br>
+                    <p for="">Conte a sua experiência</p>
+                    <textarea name="" id="" placeholder="..."></textarea>
+    
+                    <button type="submit" class="btn-white">Salvar</button>
+                </fieldset>
+
+            </form>
+        </div>
+    </div>
+</div>
