@@ -8,10 +8,34 @@ import { Observable } from 'rxjs';
 export class BuscadorService {
 
   urlBase: string = 'http://localhost:5000/localidade/';
+  urlDepoimento: string = 'http://localhost:5000/depoimento';
 
   constructor(private http: HttpClient) { }
 
   public getLocalidade(localidade: string): Observable<any>{
-    return this.http.get(`${this.urlBase}+${localidade}`)
+    return this.http.get(`${this.urlBase}${localidade}`)
+  }
+
+  public postDepoimento(idLocalidade: number, tipoAvaliacao: string, detalhes:string): Observable<any>{
+    const payload = {
+      localidade_id: idLocalidade,
+      tipoDepoimento: tipoAvaliacao,
+      detalhes: detalhes
+    }
+    
+    return this.http.post(`${this.urlDepoimento}`, payload)
+  }
+
+  public patchDepoimento(id: number, tipoAvaliacao: string, detalhes:string): Observable<any>{
+    const payload = {
+      tipoDepoimento: tipoAvaliacao,
+      detalhes: detalhes
+    }
+
+    return this.http.patch(`${this.urlDepoimento}/${id}`, payload)
+  }
+
+  public deleteDepoimento(id: number): Observable<any>{
+    return this.http.delete(`${this.urlDepoimento}/${id}`)
   }
 }

@@ -5,19 +5,14 @@
         </div>
         <h1>Registrar Avaliações</h1>
         <div class="conteudo-card">
-            <form action="" onsubmit="">
+            <form [formGroup]="avaliacao" action="" (ngSubmit)="registrarAvaliacao()">
                 <fieldset>
-
-                    <select [formGroup]="tipoAvaliacao">
-                        <option value="" disabled>Selecione um tipo de Avaliação</option>
-                        <option *ngFor="let tipo of tipos" id="tipo" [ngValue]="tipo.value">
-                            {{ tipo.nome }}
-                        </option>
-                    </select>
+                    <p for="tipo" class="tipo">Titulo da experiência</p>
+                    <input name="tipo" id="tipo" placeholder="Que assunto deseja abordar" formControlName="tipo"/>
                     <br>
                     <br>
-                    <p for="">Conte a sua experiência</p>
-                    <textarea name="" id="" placeholder="..."></textarea>
+                    <p for="detalhes" class="detalhes">Conte a sua experiência</p>
+                    <textarea name="detalhes" id="detalhes" placeholder="..." formControlName="detalhes"></textarea>
     
                     <button type="submit" class="btn-white">Salvar</button>
                 </fieldset>
