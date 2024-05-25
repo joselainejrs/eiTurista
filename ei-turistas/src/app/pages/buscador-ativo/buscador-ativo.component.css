@@ -26,6 +26,11 @@
     background: var(--Red-Normal);
 }
 
+.conteudo-busca-localidade .buscar.disabled {
+    background-color: var(--Blue-Light-Active);
+    cursor: not-allowed;
+}
+
 .carregamento{
     background-color: rgba(0, 0, 0, 0.5); 
     position: fixed;

@@ -92,6 +92,12 @@
     background: var(--Red-Normal); 
     cursor: pointer;
 }
+
+.modal .conteudo-card form fieldset button.disabled {
+    background-color: var(--Blue-Light-Active);
+    cursor: not-allowed;
+}
+
 .modal .conteudo-card form fieldset button:hover  {
     background: var(--Red-Normal-houver); 
 }

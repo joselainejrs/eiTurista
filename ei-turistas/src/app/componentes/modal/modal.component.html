@@ -14,7 +14,11 @@
                     <p for="detalhes" class="detalhes">Conte a sua experiência</p>
                     <textarea name="detalhes" id="detalhes" placeholder="..." formControlName="detalhes"></textarea>
     
-                    <button type="submit" class="btn-white">Salvar</button>
+                    <button 
+                        type="submit" 
+                        class="btn-white" 
+                        [ngClass]="{'disabled': !avaliacao.valid}"
+                        [disabled]="!avaliacao.valid">Salvar</button>
                 </fieldset>
 
             </form>

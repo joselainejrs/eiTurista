@@ -2,14 +2,24 @@
     <app-menu></app-menu>
     <div>
         <form [formGroup]="formBuscarLocalidade" (ngSubmit)="btnLocalidade()">
-            <input type="text" placeholder="Infome o nome da musica" formControlName="localidade">
-            <button class="buscar" type="submit">Buscar</button>
+            <input type="text" placeholder="Infome o nome da localidade" formControlName="localidade">
+            <button 
+                class="buscar" 
+                type="submit" 
+                [ngClass]="{'disabled': !formBuscarLocalidade.valid}"
+                [disabled]="!formBuscarLocalidade.valid">Buscar</button>
         </form>
     </div>
 
     <div class="carregamento" *ngIf="loadingService.isLoading | async">
         <i class="fa-solid fa-spinner"></i>
         <p>Aguarde, carregando...</p>
+    </div>
+
+    <div>
+       <p>
+        Explore um website repleto de informações sobre sua localidade, incluindo curiosidades, opções de passeios, gastronomia, transporte e muito mais. Tudo o que você precisa reunido em um só lugar.
+       </p>
     </div>
 
     <div *ngIf="abrirResultadoLocalidade">
@@ -84,7 +94,7 @@
         </div>
     </div>
     
-    <div *ngIf="abrirModalFormulario" id="modalFormulario">
+    <div  id="modalFormulario">
         <hr>
         <app-modal></app-modal>
     </div>
