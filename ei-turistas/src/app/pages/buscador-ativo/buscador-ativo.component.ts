@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../componentes/modal/modal.component';
 import { BuscadorService } from '../../services/pages/buscador/buscador.service';
 import { LoadingService } from '../../services/loading-spinner/loading-spinner';
-import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { LocalidadeI } from '../../interface/localidade';
 import { DepoimentoI } from '../../interface/departamento';
 import { StorageAvaliacao } from '../../services/pages/storage-avaliacao/storage-avaliacao';
@@ -18,7 +17,6 @@ import { StorageAvaliacao } from '../../services/pages/storage-avaliacao/storage
       ModalComponent, 
       CommonModule, 
       ReactiveFormsModule,
-      LoadingSpinnerComponent
     ],
   templateUrl: './buscador-ativo.component.html',
   styleUrls: [
