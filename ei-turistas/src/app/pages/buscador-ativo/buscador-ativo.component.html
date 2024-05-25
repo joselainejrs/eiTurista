@@ -3,10 +3,7 @@
     <div>
         <form [formGroup]="formBuscarLocalidade" (ngSubmit)="btnLocalidade()">
             <input type="text" placeholder="Infome o nome da localidade" formControlName="localidade">
-            <button 
-                class="buscar" 
-                type="submit" 
-                [ngClass]="{'disabled': !formBuscarLocalidade.valid}"
+            <button class="buscar" type="submit" [ngClass]="{'disabled': !formBuscarLocalidade.valid}"
                 [disabled]="!formBuscarLocalidade.valid">Buscar</button>
         </form>
     </div>
@@ -16,10 +13,17 @@
         <p>Aguarde, carregando...</p>
     </div>
 
-    <div>
-       <p>
-        Explore um website repleto de informações sobre sua localidade, incluindo curiosidades, opções de passeios, gastronomia, transporte e muito mais. Tudo o que você precisa reunido em um só lugar.
-       </p>
+    <div class="frase" *ngIf="abrirFrase">
+        <h1 class="mudanca-estilo">eiTurista</h1>
+        <p>
+            É um website repleto de informações sobre sua localidade, incluindo curiosidades, opções de passeios,
+            gastronomia, transporte e muito mais. Tudo o que você precisa reunido em um só lugar.
+        </p>
+        <br>
+        <div class="mudanca-estilo">
+            -------- <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+            --------
+        </div>
     </div>
 
     <div *ngIf="abrirResultadoLocalidade">
@@ -61,12 +65,11 @@
             <h1>Avaliações</h1>
 
             <div class="campo-de-opcao">
-                <select [formGroup]="formSelect">
-                    <option [ngValue]="todosTiposAvaliacao">Selecionar Todos</option>
-                    <option *ngFor="let tipoDepoimento of tiposDepoimentos" [ngValue]="tipoDepoimento">
-                        {{ tipoDepoimento }}
-                    </option>
-                </select>
+                <div class="opcao-avaliacao">
+                    <button type="submit" (click)="filtrarTodosPorLocalidade()">Todos as Avaliação</button>
+                    <button type="submit" *ngFor="let tipoDepoimento of tiposDepoimentos"
+                        (click)="filtroPorLocalidade(tipoDepoimento)">{{ tipoDepoimento }}</button>
+                </div>
 
                 <button class="btn-avaliacao" type="submit" (click)="abrirFormulario()">Registrar Novo Avaliação >
                 </button>
@@ -80,11 +83,16 @@
                             <p class="data">Data: <span>{{cardDepoimento.data}}</span></p>
                             <p class="hora">Hora: <span>{{cardDepoimento.hora}} h</span></p>
                         </div>
+
+                        <div class="destaques">
+                            <p>#{{cardDepoimento.tipoDepoimento}}</p>
+                        </div>
                         <div class="acao">
                             <button class="editar" type="submit" (click)="editarFormulario(cardDepoimento)">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
-                            <button class="excluir" type="submit" (click)="excluirAvaliacao(cardDepoimento.idDepoimento!)">
+                            <button class="excluir" type="submit"
+                                (click)="excluirAvaliacao(cardDepoimento.idDepoimento!)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -93,9 +101,9 @@
             </div>
         </div>
     </div>
-    
-    <div  id="modalFormulario">
+
+    <div *ngIf="abrirModalFormulario" id="modalFormulario">
         <hr>
-        <app-modal></app-modal>
+        <app-modal (openClose)="closeModal()"></app-modal>
     </div>
 </div>

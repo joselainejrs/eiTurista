@@ -13,11 +13,11 @@ import { StorageAvaliacao } from '../../services/pages/storage-avaliacao/storage
   selector: 'app-buscador-ativo',
   standalone: true,
   imports: [
-      MenuComponent, 
-      ModalComponent, 
-      CommonModule, 
-      ReactiveFormsModule,
-    ],
+    MenuComponent,
+    ModalComponent,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './buscador-ativo.component.html',
   styleUrls: [
     './buscador-ativo.component.css',
@@ -28,12 +28,12 @@ import { StorageAvaliacao } from '../../services/pages/storage-avaliacao/storage
   ]
 })
 export class BuscadorAtivoComponent {
+  abrirFrase: boolean = true;
   abrirModalFormulario: boolean = false;
   abrirResultadoLocalidade: boolean = false;
   resultLocalidade: LocalidadeI = {};
   cardsDepoimentos: DepoimentoI[] = [];
-  tiposDepoimentos: string[] = [];
-  todosTiposAvaliacao: string[] = [];
+  tiposDepoimentos: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,30 +42,24 @@ export class BuscadorAtivoComponent {
     private StorageAvaliacao: StorageAvaliacao
   ) { }
 
-  formSelect = this.formBuilder.group({
-    todos: [this.todosTiposAvaliacao],
-    tipo: [this.tiposDepoimentos]
-  });
-
   formBuscarLocalidade = this.formBuilder.group({
     localidade: ['', Validators.required]
   });
-  
+
   get localidade() {
     return this.formBuscarLocalidade.get('localidade')?.value;
   }
 
   ngOnInit() {
     const respFormulario = this.StorageAvaliacao.getAcaoFormulario();
-    if(respFormulario == 'fechar modal'){
+    if (respFormulario == 'fechar modal') {
       this.abrirModalFormulario = false;
     }
   }
 
-  public btnLocalidade(): void{
-    // debugger
+  public btnLocalidade(): void {
     if (this.localidade != null) {
-      this.loadingService.show(); 
+      this.loadingService.show();
       this.buscadorService.getLocalidade(this.localidade)?.subscribe({
         next: (value: any) => {
           console.log(value)
@@ -78,18 +72,51 @@ export class BuscadorAtivoComponent {
           } else {
             console.error('Depoimentos não encontrados ou não são um array.');
             this.cardsDepoimentos = [];
-            this.tiposDepoimentos = []; 
+            this.tiposDepoimentos = [];
           }
         },
-        error: (err: Error) => { 
+        error: (err: Error) => {
           console.log(err)
-          this.loadingService.hide(); 
+          this.loadingService.hide();
         },
-        complete: () => { 
-          this.abrirResultadoLocalidade = true; 
+        complete: () => {
+          this.abrirFrase = false;
+          this.abrirResultadoLocalidade = true;
           this.loadingService.hide();
         }
       })
+    }
+  }
+
+  public filtrarTodosPorLocalidade(): void {
+    let idLocalidade = this.resultLocalidade.id
+    if (idLocalidade != null) {
+      this.buscadorService.getFiltrarTodosDepoimentosPorLocalidade(idLocalidade)
+        .subscribe({
+          next: (value: any) => {
+            console.log(value)
+            // console.log("value.depoimentos", value.depoimentos)
+            // console.log('this.cardsDepoimentos', this.cardsDepoimentos)
+            this.cardsDepoimentos = value;
+          },
+          error: (err: Error) => { },
+          complete: () => { }
+        })
+    }
+  }
+
+  public filtroPorLocalidade(tipoSelecionado: any): void {
+    let idLocalidade = this.resultLocalidade.id
+    if (idLocalidade != null) {
+      this.buscadorService.getFiltrarPorTipoDepoimentoPorLocalidade(tipoSelecionado, idLocalidade)
+        .subscribe({
+          next: (value: any) => {
+            console.log(value)
+            this.cardsDepoimentos = value;
+          },
+          error: (err: Error) => { },
+          complete: () => { }
+        })
     }
   }
 
@@ -102,10 +129,10 @@ export class BuscadorAtivoComponent {
     this.abrirModalFormulario = true;
 
     let id = this.resultLocalidade.id
-    if(id != null){
+    if (id != null) {
       this.StorageAvaliacao.setIdLocalidade(id)
     }
-    
+
     setTimeout(() => {
       const modalElement = document.getElementById('modalFormulario');
       if (modalElement) {
@@ -132,9 +159,14 @@ export class BuscadorAtivoComponent {
       next: (value: any) => {
         console.log('ok')
       },
-      error: (err: Error) => {},
-      complete: () => {}
+      error: (err: Error) => { },
+      complete: () => { }
     })
+  }
+
+  closeModal(){
+    console.log('entrou')
+    this.abrirModalFormulario = false;
   }
 
 }

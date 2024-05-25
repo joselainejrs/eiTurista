@@ -31,6 +31,29 @@
     cursor: not-allowed;
 }
 
+.conteudo-busca-localidade .frase{
+    margin: 9rem auto;
+    color: var(--Red-Dark);
+    font-weight: 600;
+}
+
+.conteudo-busca-localidade .frase p{
+    margin: 0 auto;
+}
+
+.conteudo-busca-localidade .frase h1{
+    font: 5rem "Pompiere", sans-serif;
+    margin: 0 0 0 20px;
+    padding-bottom: 10px;
+}
+
+.conteudo-busca-localidade .frase .mudanca-estilo{
+    color: var(--Blue-Darker);
+    margin-bottom: 2rem;
+    font-family:"Pompiere", sans-serif;
+
+}
+
 .carregamento{
     background-color: rgba(0, 0, 0, 0.5); 
     position: fixed;
@@ -68,29 +91,40 @@
 }
 
 .campo-avaliação .campo-de-opcao {
-    display: flex;
-    justify-content: space-between;
     width: 922px;
+    display: flex;
+    font-size: 15px;
+    margin: 3rem 0 0 0;
+    justify-content: space-between;
 }
 
-.campo-avaliação .campo-de-opcao select {
-    background: none;
+.campo-avaliação .campo-de-opcao .opcao-avaliacao {
+    display: flex; 
+    margin-right: 10px;
+}
+
+.campo-avaliação .campo-de-opcao .opcao-avaliacao button{
     border: none;
-    width: 150px;
-    font-size: 15px;
+    height: 35px;
+    padding: 10px;
     cursor: pointer;
-    color: var(--Red-Normal);
-    margin: 3rem 0 0;
-    position: relative;
+    margin-right: 10px;
+    border-radius: 10px;
+    background: var(--Blue-Light);
+    color: var(--Blue-Darker);
+}
+
+.campo-avaliação .campo-de-opcao .opcao-avaliacao button:hover{
+    background: var(--Red-Dark);
+    color: white;
 }
 
 .campo-avaliação .campo-de-opcao .btn-avaliacao{
+    border: none;
     color: var(--Red-Normal);
     background: none;
-    border: none;
     cursor: pointer;
-    font-size: 15px;
-    margin: 55px 0 0 0;
+    margin-right: 25px;
 }
 
 .campo-avaliação .campo-de-opcao select:active {
@@ -101,7 +135,7 @@
 .cards {
     display: grid;
     grid-template-columns: 20rem 20rem 20rem;
-    margin-top: 3rem;
+    margin: 5rem auto;
 }
 
 hr{

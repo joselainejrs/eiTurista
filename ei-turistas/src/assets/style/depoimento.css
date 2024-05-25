@@ -5,6 +5,7 @@
     border-radius: 10px;
     background: var(--Blue-Light);
     color: var(--Blue-Normal-Text);
+    font-family: "Poppins", sans-serif;
 }
 
 .detalhes {
@@ -14,14 +15,31 @@
     text-align: justify;
 }
 
+.destaques {
+    margin: 0;
+    text-align: justify;
+    padding-top: 7px;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.destaques p {
+    margin: 0;
+}
+
 .horaData {
     display: flex;
-    justify-content: space-evenly;
     font-weight: 200;
+    padding-top: 10px;
+    justify-content: space-evenly;
 }
 
 .horaData p {
     margin: 0;
+}
+
+.horaData span {
+    font-weight: 300;
 }
 
 .acao {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StorageAvaliacao } from '../../services/pages/storage-avaliacao/storage-avaliacao';
 import { DepoimentoI } from '../../interface/departamento';
@@ -15,6 +15,7 @@ import { BuscadorService } from '../../services/pages/buscador/buscador.service'
 export class ModalComponent implements OnInit {
   acao: string = '';
   depoimento!: DepoimentoI;
+  @Output() openClose = new EventEmitter()
 
   avaliacao = this.formBuilder.group({
     tipo: ["", Validators.required],
@@ -27,7 +28,6 @@ export class ModalComponent implements OnInit {
     private buscarService: BuscadorService,
     private StorageAvaliacao: StorageAvaliacao
   ) { }
-
 
   get tipo() {
     return this.avaliacao.get('tipo')?.value
@@ -46,6 +46,10 @@ export class ModalComponent implements OnInit {
         detalhes: this.depoimento.detalhes
       });
     }
+  }
+
+  fecharModal(){
+    this.openClose.emit();
   }
 
   public registrarAvaliacao(): void {
