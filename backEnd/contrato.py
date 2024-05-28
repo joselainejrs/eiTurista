@@ -30,9 +30,9 @@ class Localidade(db.Model):
         }
 
 class Depoimento(db.Model):
-    idDepoimento = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    localidade_id = db.Column(db.Integer, db.ForeignKey('localidade.id'))
-    tipoDepoimento = db.Column(db.String)
+    id_depoimento = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_localidade = db.Column(db.Integer, db.ForeignKey('localidade.id'))
+    tipo_depoimento = db.Column(db.String)
     detalhes = db.Column(db.String)
     data = db.Column(db.Date)
     hora = db.Column(db.Time)
@@ -43,9 +43,9 @@ class Depoimento(db.Model):
         hora_formatada = self.hora.strftime("%H:%M")
 
         return {
-            'idDepoimento': self.idDepoimento,
-            'localidade_id': self.localidade_id,
-            'tipoDepoimento': self.tipoDepoimento,
+            'id_depoimento': self.id_depoimento,
+            'id_localidade': self.id_localidade,
+            'tipo_depoimento': self.tipo_depoimento,
             'detalhes': self.detalhes,
             'data': data_formatada,
             'hora': hora_formatada

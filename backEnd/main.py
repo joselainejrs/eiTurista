@@ -3,6 +3,7 @@ import requests
 import unicodedata
 from flask_cors import CORS
 from datetime import datetime
+from flask_migrate import Migrate
 from flask import Flask, jsonify, request
 from contrato import Localidade, Depoimento, db
 
@@ -10,10 +11,9 @@ app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eiTurista.db'
 db.init_app(app)
-
+migrate = Migrate(app, db)
 
 api_key = os.environ['api_key_previsao_tempo']
-
 
 def formulaCelsius(Kelvin: int) -> int:
     celsius = Kelvin - 273.15
@@ -24,8 +24,8 @@ def avaliacao_texto(texto: str) -> str:
     texto = unicodedata.normalize('NFKD', texto).encode('ASCII', 'ignore').decode('ASCII')
     return texto
 
-def padronizar_tipo_depoimento(tipoDepoimento: str) -> str:
-    tipoDepoimento_normalizado = avaliacao_texto(tipoDepoimento)
+def padronizar_tipo_depoimento(tipo_depoimento: str) -> str:
+    tipoDepoimento_normalizado = avaliacao_texto(tipo_depoimento)
     if tipoDepoimento_normalizado == 'transito':
         return 'Trânsito'
     if tipoDepoimento_normalizado == 'restaurante':
@@ -34,7 +34,7 @@ def padronizar_tipo_depoimento(tipoDepoimento: str) -> str:
         return 'Lazer'
     if tipoDepoimento_normalizado == 'tempo':
         return 'Tempo'
-    return tipoDepoimento
+    return tipo_depoimento
 
 @app.route('/localidade/<nome>', methods=["GET"])
 def getLocalidade(nome: str):
@@ -71,7 +71,7 @@ def getLocalidade(nome: str):
         
         db.session.commit()
 
-        depoimentos = Depoimento.query.filter_by(localidade_id=localidade.id).all()
+        depoimentos = Depoimento.query.filter_by(id_localidade=localidade.id).all()
         depoimentos_list = [depoimento.to_dict() for depoimento in depoimentos]
 
         response = {
@@ -88,27 +88,27 @@ def getLocalidade(nome: str):
 def postDepoimento():
     dados = request.get_json()
 
-    localidade_id = dados.get('localidade_id')
-    tipoDepoimento = dados.get('tipoDepoimento')
+    id_localidade = dados.get('id_localidade')
+    tipo_depoimento = dados.get('tipo_depoimento')
     detalhes = dados.get('detalhes')
 
-    if not localidade_id or not tipoDepoimento or not detalhes:
+    if not id_localidade or not tipo_depoimento or not detalhes:
         return jsonify({"error": "Todos os campos são necessários"}), 400
     
-    depoimento_existente = Depoimento.query.filter(Depoimento.localidade_id == localidade_id) \
-                                           .filter(Depoimento.tipoDepoimento == tipoDepoimento) \
+    depoimento_existente = Depoimento.query.filter(Depoimento.id_localidade == id_localidade) \
+                                           .filter(Depoimento.tipo_depoimento == tipo_depoimento) \
                                            .filter(Depoimento.detalhes == detalhes) \
                                            .first()
     if depoimento_existente:
         return jsonify({"error": "Este depoimento já foi registrado"}), 409 
     
-    localidade = Localidade.query.get(localidade_id)
+    localidade = Localidade.query.get(id_localidade)
     if not localidade:
         return jsonify({"error": "Localidade não encontrada"}), 404
        
     depoimento = Depoimento(
-        localidade_id = localidade.id,
-        tipoDepoimento = padronizar_tipo_depoimento(tipoDepoimento),
+        id_localidade = localidade.id,
+        tipo_depoimento = padronizar_tipo_depoimento(tipo_depoimento),
         detalhes = detalhes,
         data = datetime.now().date(),
         hora = datetime.now().time()
@@ -128,8 +128,8 @@ def patchDepoimento(idDepoimento):
     if not depoimento:
         return jsonify({"error": "Depoimento não encontrado"}), 404
         
-    if 'tipoDepoimento' in dados:
-        depoimento.tipoDepoimento = padronizar_tipo_depoimento(dados['tipoDepoimento'])
+    if 'tipo_depoimento' in dados:
+        depoimento.tipo_depoimento = padronizar_tipo_depoimento(dados['tipoDepoimento'])
     if 'detalhes' in dados:
         depoimento.detalhes = dados['detalhes']
 
@@ -138,7 +138,7 @@ def patchDepoimento(idDepoimento):
     
     db.session.commit()
 
-    localidade = Localidade.query.get(depoimento.localidade_id)
+    localidade = Localidade.query.get(depoimento.id_localidade)
     if localidade:
         nome_localidade = localidade.local
         getLocalidade(nome_localidade)
@@ -158,9 +158,9 @@ def deleteDepoimento(idDepoimento):
     
     return jsonify({"message": "Depoimento excluído com sucesso"}), 200
 
-@app.route('/depoimento/tipo/<string:tipoDepoimento>/localidade/<int:localidade_id>', methods=["GET"])
-def getFiltrarPorTipoDepoimentoPorLocalidade(tipoDepoimento, localidade_id):
-    depoimentos_filtrados = Depoimento.query.filter_by(tipoDepoimento=tipoDepoimento, localidade_id=localidade_id).all()
+@app.route('/depoimento/tipo/<string:tipo_depoimento>/localidade/<int:id_localidade>', methods=["GET"])
+def getPorTipoDepoimentoPorLocalidade(tipo_depoimento, id_localidade):
+    depoimentos_filtrados = Depoimento.query.filter_by(tipo_depoimento=tipo_depoimento, id_localidade=id_localidade).all()
     
     if not depoimentos_filtrados:
         return jsonify({"message": "Nenhum depoimento encontrado para este tipo e localidade"}), 404
@@ -169,9 +169,9 @@ def getFiltrarPorTipoDepoimentoPorLocalidade(tipoDepoimento, localidade_id):
     
     return jsonify(depoimentos_dict), 200
 
-@app.route('/depoimento/localidade/<int:localidade_id>', methods=["GET"])
-def getFiltrarTodosDepoimentosPorLocalidade(localidade_id):
-    depoimentos_filtrados = Depoimento.query.filter_by(localidade_id=localidade_id).all()
+@app.route('/depoimento/localidade/<int:id_localidade>', methods=["GET"])
+def getTodosTipoDepoimentoPorLocalidade(id_localidade):
+    depoimentos_filtrados = Depoimento.query.filter_by(id_localidade=id_localidade).all()
     
     if not depoimentos_filtrados:
         return jsonify({"message": "Nenhum depoimento encontrado para esta localidade"}), 404
