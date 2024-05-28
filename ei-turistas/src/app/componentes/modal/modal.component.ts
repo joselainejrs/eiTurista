@@ -15,7 +15,8 @@ import { BuscadorService } from '../../services/pages/buscador/buscador.service'
 export class ModalComponent implements OnInit {
   acao: string = '';
   depoimento!: DepoimentoI;
-  @Output() openClose = new EventEmitter()
+  @Output() openClose = new EventEmitter();
+  @Output() registrado = new EventEmitter();
 
   avaliacao = this.formBuilder.group({
     tipo: ["", Validators.required],
@@ -42,7 +43,7 @@ export class ModalComponent implements OnInit {
 
     if (this.acao == "editar") {
       this.avaliacao.patchValue({
-        tipo: this.depoimento.tipoDepoimento,
+        tipo: this.depoimento.tipo_depoimento,
         detalhes: this.depoimento.detalhes
       });
     }
@@ -52,9 +53,13 @@ export class ModalComponent implements OnInit {
     this.openClose.emit();
   }
 
+  registrarCardDepoimento(){
+    this.registrado.emit();
+  }
+
   public registrarAvaliacao(): void {
     if (this.acao == "editar") {
-      let id = this.depoimento.idDepoimento;
+      let id = this.depoimento.id_depoimento;
       if (id != null) { this.editarRegistro(id) }
 
     } else {
@@ -75,6 +80,7 @@ export class ModalComponent implements OnInit {
     }
   }
   private salvarRegistro(id: number): void {
+    this.avaliacao.reset();
     if (this.tipo != null && this.detalhes != null) {
       this.buscarService.postDepoimento(id, this.tipo, this.detalhes).subscribe({
         next: (value: any) => {
@@ -88,8 +94,9 @@ export class ModalComponent implements OnInit {
 
   private acaoDeSucessoNoregistro(): void {
     this.avaliacao.reset();
-    this.cdr.detectChanges();
-    this.StorageAvaliacao.setAcaoFormulario('fechar modal')
+    this.fecharModal();
+    this.registrarCardDepoimento();
+    // window.location.reload();
   }
 
 }

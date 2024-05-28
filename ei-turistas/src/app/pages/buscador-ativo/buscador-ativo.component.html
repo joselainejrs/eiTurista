@@ -78,6 +78,7 @@
             <div class="cards">
                 <div *ngFor="let cardDepoimento of cardsDepoimentos">
                     <div class="depoimento">
+                        <p class="tipo">{{cardDepoimento.tipo_depoimento}}:</p>
                         <p class="detalhes">{{cardDepoimento.detalhes}}</p>
                         <div class="horaData">
                             <p class="data">Data: <span>{{cardDepoimento.data}}</span></p>
@@ -85,14 +86,14 @@
                         </div>
 
                         <div class="destaques">
-                            <p>#{{cardDepoimento.tipoDepoimento}}</p>
+                            <p>#{{cardDepoimento.tipo_depoimento}}</p>
                         </div>
                         <div class="acao">
                             <button class="editar" type="submit" (click)="editarFormulario(cardDepoimento)">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                             <button class="excluir" type="submit"
-                                (click)="excluirAvaliacao(cardDepoimento.idDepoimento!)">
+                                (click)="excluirAvaliacao(cardDepoimento.id_depoimento!)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -104,6 +105,6 @@
 
     <div *ngIf="abrirModalFormulario" id="modalFormulario">
         <hr>
-        <app-modal (openClose)="closeModal()"></app-modal>
+        <app-modal (openClose)="closeModal()" (registrado)="atualizaCard()"></app-modal>
     </div>
 </div>

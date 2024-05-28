@@ -1,7 +1,7 @@
 export interface DepoimentoI {
-    idDepoimento?: number
-    localidade_id?: string
-    tipoDepoimento?: string
+    id_depoimento?: number
+    id_localidade?: number
+    tipo_depoimento?: string
     detalhes?: string
     data?: string
     hora?: string

@@ -95,8 +95,6 @@ export class BuscadorAtivoComponent {
         .subscribe({
           next: (value: any) => {
             console.log(value)
-            // console.log("value.depoimentos", value.depoimentos)
-            // console.log('this.cardsDepoimentos', this.cardsDepoimentos)
             this.cardsDepoimentos = value;
           },
           error: (err: Error) => { },
@@ -121,7 +119,7 @@ export class BuscadorAtivoComponent {
   }
 
   private extractUniqueTipos(depoimentos: DepoimentoI[]): string[] {
-    const tipos = depoimentos.map(d => d.tipoDepoimento).filter((tipo): tipo is string => typeof tipo === 'string');
+    const tipos = depoimentos.map(d => d.tipo_depoimento).filter((tipo): tipo is string => typeof tipo === 'string');
     return Array.from(new Set(tipos));
   }
 
@@ -158,15 +156,22 @@ export class BuscadorAtivoComponent {
     this.buscadorService.deleteDepoimento(id)?.subscribe({
       next: (value: any) => {
         console.log('ok')
+        this.filtrarTodosPorLocalidade();
+        // window.location.reload();
       },
       error: (err: Error) => { },
       complete: () => { }
     })
   }
 
-  closeModal(){
+  public closeModal(){
     console.log('entrou')
     this.abrirModalFormulario = false;
+    this.filtrarTodosPorLocalidade();
+  }
+
+  public atualizaCard(){
+    this.filtrarTodosPorLocalidade();
   }
 
 }

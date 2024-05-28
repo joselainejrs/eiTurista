@@ -116,8 +116,14 @@ def postDepoimento():
     
     db.session.add(depoimento)
     db.session.commit()
+
+    depoimento = Depoimento.query.filter_by(id_localidade=id_localidade).all()
+
     
-    return jsonify(depoimento.to_dict()), 201
+    return jsonify({
+        "depoimento": [depoimento.to_dict() for depoimento in depoimento],
+    }), 201
+
 
 @app.route('/depoimento/<int:idDepoimento>', methods=["PATCH"])
 def patchDepoimento(idDepoimento):
@@ -129,7 +135,7 @@ def patchDepoimento(idDepoimento):
         return jsonify({"error": "Depoimento não encontrado"}), 404
         
     if 'tipo_depoimento' in dados:
-        depoimento.tipo_depoimento = padronizar_tipo_depoimento(dados['tipoDepoimento'])
+        depoimento.tipo_depoimento = padronizar_tipo_depoimento(dados['tipo_depoimento'])
     if 'detalhes' in dados:
         depoimento.detalhes = dados['detalhes']
 
@@ -155,6 +161,11 @@ def deleteDepoimento(idDepoimento):
     
     db.session.delete(depoimento)
     db.session.commit()
+
+    localidade = Localidade.query.filter_by(id=depoimento.id_localidade).first()
+    if localidade:
+        getTodosTipoDepoimentoPorLocalidade(localidade.id)
+
     
     return jsonify({"message": "Depoimento excluído com sucesso"}), 200
 
@@ -163,7 +174,7 @@ def getPorTipoDepoimentoPorLocalidade(tipo_depoimento, id_localidade):
     depoimentos_filtrados = Depoimento.query.filter_by(tipo_depoimento=tipo_depoimento, id_localidade=id_localidade).all()
     
     if not depoimentos_filtrados:
-        return jsonify({"message": "Nenhum depoimento encontrado para este tipo e localidade"}), 404
+        return jsonify([]), 200
     
     depoimentos_dict = [depoimento.to_dict() for depoimento in depoimentos_filtrados]
     
@@ -174,13 +185,13 @@ def getTodosTipoDepoimentoPorLocalidade(id_localidade):
     depoimentos_filtrados = Depoimento.query.filter_by(id_localidade=id_localidade).all()
     
     if not depoimentos_filtrados:
-        return jsonify({"message": "Nenhum depoimento encontrado para esta localidade"}), 404
+        return jsonify([]), 200
     
     depoimentos_dict = [depoimento.to_dict() for depoimento in depoimentos_filtrados]
-    
+
     return jsonify(depoimentos_dict), 200
 
-
+        
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

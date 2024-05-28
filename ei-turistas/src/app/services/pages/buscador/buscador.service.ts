@@ -27,8 +27,8 @@ export class BuscadorService {
 
   public postDepoimento(idLocalidade: number, tipoAvaliacao: string, detalhes: string): Observable<any> {
     const payload = {
-      localidade_id: idLocalidade,
-      tipoDepoimento: tipoAvaliacao,
+      id_localidade: idLocalidade,
+      tipo_depoimento: tipoAvaliacao,
       detalhes: detalhes
     }
 
@@ -37,7 +37,7 @@ export class BuscadorService {
 
   public patchDepoimento(id: number, tipoAvaliacao: string, detalhes: string): Observable<any> {
     const payload = {
-      tipoDepoimento: tipoAvaliacao,
+      tipo_depoimento: tipoAvaliacao,
       detalhes: detalhes
     }
 

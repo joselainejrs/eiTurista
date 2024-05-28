@@ -8,9 +8,16 @@
     font-family: "Poppins", sans-serif;
 }
 
+.tipo{
+    margin: 6px 0;
+    font-weight: 200;
+    text-align: justify;
+    font-size: 14px;
+}
+
 .detalhes {
     width: 240px;
-    font-size: 14px;
+    font-size: 13px;
     margin: 0 0px 10px 0;
     text-align: justify;
 }
