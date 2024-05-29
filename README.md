@@ -39,3 +39,6 @@ Após realizar o clone do repositorio é preciso que você tenha baixado na maqu
    ```
 
 - Esse comando inicia a aplicação automaticamente, gerando um localhost para que possa ser testado no navegador.
+
+Foi usado o postman para realizar as requisições ![image](https://github.com/joselainejrs/eiTurista/assets/55799037/4c8361bc-47fb-402d-875e-86543f5f1566)
+
