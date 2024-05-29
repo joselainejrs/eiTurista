@@ -125,25 +125,23 @@ export class BuscadorAtivoComponent {
 
   public abrirFormulario(): void {
     this.abrirModalFormulario = true;
+    this.StorageAvaliacao.setTipoAcao('cadastrar')
 
     let id = this.resultLocalidade.id
     if (id != null) {
       this.StorageAvaliacao.setIdLocalidade(id)
     }
-
-    setTimeout(() => {
-      const modalElement = document.getElementById('modalFormulario');
-      if (modalElement) {
-        modalElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 0);
+    this.renderizaParaModal();
   }
 
   public editarFormulario(cardDepoimento: DepoimentoI): void {
     this.abrirModalFormulario = true;
     this.StorageAvaliacao.setEditarCardDepoimento(cardDepoimento)
     this.StorageAvaliacao.setTipoAcao('editar')
+    this.renderizaParaModal();
+  }
 
+  private renderizaParaModal():void{
     setTimeout(() => {
       const modalElement = document.getElementById('modalFormulario');
       if (modalElement) {
@@ -167,10 +165,6 @@ export class BuscadorAtivoComponent {
   public closeModal(){
     console.log('entrou')
     this.abrirModalFormulario = false;
-    this.filtrarTodosPorLocalidade();
-  }
-
-  public atualizaCard(){
     this.filtrarTodosPorLocalidade();
   }
 

@@ -80,7 +80,6 @@ export class ModalComponent implements OnInit {
     }
   }
   private salvarRegistro(id: number): void {
-    this.avaliacao.reset();
     if (this.tipo != null && this.detalhes != null) {
       this.buscarService.postDepoimento(id, this.tipo, this.detalhes).subscribe({
         next: (value: any) => {
@@ -95,7 +94,6 @@ export class ModalComponent implements OnInit {
   private acaoDeSucessoNoregistro(): void {
     this.avaliacao.reset();
     this.fecharModal();
-    this.registrarCardDepoimento();
     // window.location.reload();
   }
 

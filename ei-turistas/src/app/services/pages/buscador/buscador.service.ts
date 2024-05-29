@@ -25,10 +25,10 @@ export class BuscadorService {
     return this.http.get(`${this.urlDepoimento}/localidade/${idLocalidade}`)
   }
 
-  public postDepoimento(idLocalidade: number, tipoAvaliacao: string, detalhes: string): Observable<any> {
+  public postDepoimento(id_localidade: number, tipo_depoimento: string, detalhes: string): Observable<any> {
     const payload = {
-      id_localidade: idLocalidade,
-      tipo_depoimento: tipoAvaliacao,
+      id_localidade: id_localidade,
+      tipo_depoimento: tipo_depoimento,
       detalhes: detalhes
     }
 

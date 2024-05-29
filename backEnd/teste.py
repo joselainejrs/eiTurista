@@ -117,19 +117,10 @@ def postDepoimento():
     db.session.add(depoimento)
     db.session.commit()
 
-    localidade = Localidade.query.get(depoimento.id_localidade)
-    if localidade:
-        nome_localidade = localidade.local
-        getLocalidade(nome_localidade)
-
-    return jsonify(depoimento.to_dict()), 200
-
-    # depoimento = Depoimento.query.filter_by(id_localidade=id_localidade).all()
+    depoimento = [depoimento.to_dict() for depoimento in depoimento]
 
     
-    # return jsonify({
-    #     "depoimento": [depoimento.to_dict() for depoimento in depoimento],
-    # }), 201
+    return jsonify(depoimento.to_dict()), 200
 
 
 @app.route('/depoimento/<int:idDepoimento>', methods=["PATCH"])
