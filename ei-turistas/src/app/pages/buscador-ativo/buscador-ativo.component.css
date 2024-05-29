@@ -114,8 +114,13 @@
     color: var(--Blue-Darker);
 }
 
+.campo-avaliação .campo-de-opcao .opcao-avaliacao button.active{
+    background: var(--Red-Normal);
+    color: white;
+}
+
 .campo-avaliação .campo-de-opcao .opcao-avaliacao button:hover{
-    background: var(--Red-Dark);
+    background: var(--Blue-Light-Active);
     color: white;
 }
 
@@ -125,6 +130,10 @@
     background: none;
     cursor: pointer;
     margin-right: 25px;
+}
+
+.campo-avaliação .campo-de-opcao .btn-avaliacaobutton:hover{
+    color: var(--Blue-Light-Active);
 }
 
 .campo-avaliação .campo-de-opcao select:active {

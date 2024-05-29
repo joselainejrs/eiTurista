@@ -124,13 +124,6 @@ def postDepoimento():
 
     return jsonify(depoimento.to_dict()), 200
 
-    # depoimento = Depoimento.query.filter_by(id_localidade=id_localidade).all()
-
-    
-    # return jsonify({
-    #     "depoimento": [depoimento.to_dict() for depoimento in depoimento],
-    # }), 201
-
 
 @app.route('/depoimento/<int:idDepoimento>', methods=["PATCH"])
 def patchDepoimento(idDepoimento):

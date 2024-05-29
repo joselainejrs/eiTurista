@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StorageAvaliacao } from '../../services/pages/storage-avaliacao/storage-avaliacao';
 import { DepoimentoI } from '../../interface/departamento';
 import { BuscadorService } from '../../services/pages/buscador/buscador.service';
+import { LoadingService } from '../../services/loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-modal',
@@ -24,8 +25,8 @@ export class ModalComponent implements OnInit {
   });
 
   constructor(
-    private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
+    public loadingService: LoadingService,
     private buscarService: BuscadorService,
     private StorageAvaliacao: StorageAvaliacao
   ) { }
@@ -70,22 +71,24 @@ export class ModalComponent implements OnInit {
 
   private editarRegistro(id: number): void {
     if (this.tipo != null && this.detalhes != null) {
+      this.loadingService.show();
       this.buscarService.patchDepoimento(id, this.tipo, this.detalhes).subscribe({
         next: (value: any) => {
           this.acaoDeSucessoNoregistro();
         },
-        error(err) { },
+        error:(err) => {this.loadingService.hide()},
         complete() { },
       })
     }
   }
   private salvarRegistro(id: number): void {
     if (this.tipo != null && this.detalhes != null) {
+      this.loadingService.show();
       this.buscarService.postDepoimento(id, this.tipo, this.detalhes).subscribe({
         next: (value: any) => {
           this.acaoDeSucessoNoregistro();
         },
-        error(err) { },
+        error:(err) => {this.loadingService.hide()},
         complete() { },
       })
     }
@@ -93,6 +96,7 @@ export class ModalComponent implements OnInit {
 
   private acaoDeSucessoNoregistro(): void {
     this.avaliacao.reset();
+    this.loadingService.hide();
     this.fecharModal();
     // window.location.reload();
   }

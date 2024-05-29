@@ -34,6 +34,7 @@ export class BuscadorAtivoComponent {
   resultLocalidade: LocalidadeI = {};
   cardsDepoimentos: DepoimentoI[] = [];
   tiposDepoimentos: any[] = [];
+  tipoDepoimentoSelecionado: string = ''; 
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,7 +63,7 @@ export class BuscadorAtivoComponent {
       this.loadingService.show();
       this.buscadorService.getLocalidade(this.localidade)?.subscribe({
         next: (value: any) => {
-          console.log(value)
+          console.log('ok')
           this.resultLocalidade = value.localidade;
           this.abrirModalFormulario = false;
 
@@ -90,11 +91,12 @@ export class BuscadorAtivoComponent {
 
   public filtrarTodosPorLocalidade(): void {
     let idLocalidade = this.resultLocalidade.id
+    this.tipoDepoimentoSelecionado = '';
     if (idLocalidade != null) {
       this.buscadorService.getFiltrarTodosDepoimentosPorLocalidade(idLocalidade)
         .subscribe({
           next: (value: any) => {
-            console.log(value)
+            console.log('ok')
             this.cardsDepoimentos = value;
           },
           error: (err: Error) => { },
@@ -105,11 +107,12 @@ export class BuscadorAtivoComponent {
 
   public filtroPorLocalidade(tipoSelecionado: any): void {
     let idLocalidade = this.resultLocalidade.id
+    this.tipoDepoimentoSelecionado = tipoSelecionado;
     if (idLocalidade != null) {
       this.buscadorService.getFiltrarPorTipoDepoimentoPorLocalidade(tipoSelecionado, idLocalidade)
         .subscribe({
           next: (value: any) => {
-            console.log(value)
+            console.log('ok')
             this.cardsDepoimentos = value;
           },
           error: (err: Error) => { },
@@ -163,7 +166,6 @@ export class BuscadorAtivoComponent {
   }
 
   public closeModal(){
-    console.log('entrou')
     this.abrirModalFormulario = false;
     this.filtrarTodosPorLocalidade();
   }

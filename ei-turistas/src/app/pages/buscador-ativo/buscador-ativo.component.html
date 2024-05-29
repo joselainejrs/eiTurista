@@ -67,7 +67,10 @@
             <div class="campo-de-opcao">
                 <div class="opcao-avaliacao">
                     <button type="submit" (click)="filtrarTodosPorLocalidade()">Todos as Avaliação</button>
-                    <button type="submit" *ngFor="let tipoDepoimento of tiposDepoimentos"
+                    <button 
+                        type="submit" 
+                        *ngFor="let tipoDepoimento of tiposDepoimentos"
+                        [class.active]="tipoDepoimento === tipoDepoimentoSelecionado"
                         (click)="filtroPorLocalidade(tipoDepoimento)">{{ tipoDepoimento }}</button>
                 </div>
 
