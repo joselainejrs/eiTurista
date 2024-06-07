@@ -1,90 +1,14 @@
-import os
-import requests
-import unicodedata
-from flask_cors import CORS
 from datetime import datetime
-from flask_migrate import Migrate
-from flask import Flask, jsonify, request
-from contrato import Localidade, Depoimento, db
+from flask import Blueprint, jsonify, request
+from helpers.texto import padronizar_tipo_depoimento
+from models.dblocalidade import *
+from models.dbdepoimento import *
+from .localidade import getLocalidade
 
-app = Flask(__name__)
-CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eiTurista.db'
-db.init_app(app)
-migrate = Migrate(app, db)
-
-api_key = os.environ['api_key_previsao_tempo']
-
-def formulaCelsius(Kelvin: int) -> int:
-    celsius = Kelvin - 273.15
-    return f'{int(celsius)}'
-
-def avaliacao_texto(texto: str) -> str:
-    texto = texto.lower()
-    texto = unicodedata.normalize('NFKD', texto).encode('ASCII', 'ignore').decode('ASCII')
-    return texto
-
-def padronizar_tipo_depoimento(tipo_depoimento: str) -> str:
-    tipoDepoimento_normalizado = avaliacao_texto(tipo_depoimento)
-    if tipoDepoimento_normalizado == 'transito':
-        return 'Trânsito'
-    if tipoDepoimento_normalizado == 'restaurante':
-        return 'Restaurante'
-    if tipoDepoimento_normalizado == 'lazer':
-        return 'Lazer'
-    if tipoDepoimento_normalizado == 'tempo':
-        return 'Tempo'
-    return tipo_depoimento
-
-@app.route('/localidade/<nome>', methods=["GET"])
-def getLocalidade(nome: str):
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={nome}&appid={api_key}'
-    resp = requests.get(url)
-
-    if resp.status_code == 200:
-        dados = resp.json()
-        id = dados['id']
-        local = dados['name']
-        pais = dados['sys']['country']
-        descricao = dados['weather'][0]['description']
-        temp_max = dados['main']['temp_max']
-        temp_min = dados['main']['temp_min']
-        sensacao_termica = dados['main']['feels_like']
-
-        localidade = Localidade.query.filter_by(local=local).first()
-        if not localidade:
-            localidade = Localidade(
-                id=id,
-                local=local,
-                pais=pais,
-                descricao=descricao,
-                temp_max=formulaCelsius(temp_max),
-                temp_min=formulaCelsius(temp_min),
-                sensacao_termica=formulaCelsius(sensacao_termica)
-            )
-            db.session.add(localidade)
-        else:
-            localidade.descricao = descricao
-            localidade.temp_max = formulaCelsius(temp_max)
-            localidade.temp_min = formulaCelsius(temp_min)
-            localidade.sensacao_termica = formulaCelsius(sensacao_termica)
-        
-        db.session.commit()
-
-        depoimentos = Depoimento.query.filter_by(id_localidade=localidade.id).all()
-        depoimentos_list = [depoimento.to_dict() for depoimento in depoimentos]
-
-        response = {
-            'localidade': localidade.to_dict(),
-            'depoimentos': depoimentos_list
-        }
-        
-        return jsonify(response)
-    elif resp.status_code == 404:
-        return jsonify({'error': 'não encontrado'}), 404
+depoimento_route = Blueprint('depoimento', __name__)
 
 
-@app.route('/depoimento', methods=["POST"])
+@depoimento_route.route('', methods=["POST"])
 def postDepoimento():
     dados = request.get_json()
 
@@ -125,7 +49,7 @@ def postDepoimento():
     return jsonify(depoimento.to_dict()), 200
 
 
-@app.route('/depoimento/<int:idDepoimento>', methods=["PATCH"])
+@depoimento_route.route('/<int:idDepoimento>', methods=["PATCH"])
 def patchDepoimento(idDepoimento):
     dados = request.get_json()
     
@@ -152,7 +76,7 @@ def patchDepoimento(idDepoimento):
     return jsonify(depoimento.to_dict()), 200
 
 
-@app.route('/depoimento/<int:idDepoimento>', methods=["DELETE"])
+@depoimento_route.route('/<int:idDepoimento>', methods=["DELETE"])
 def deleteDepoimento(idDepoimento):
     depoimento = Depoimento.query.get(idDepoimento)
     
@@ -165,11 +89,10 @@ def deleteDepoimento(idDepoimento):
     localidade = Localidade.query.filter_by(id=depoimento.id_localidade).first()
     if localidade:
         getTodosTipoDepoimentoPorLocalidade(localidade.id)
-
     
     return jsonify({"message": "Depoimento excluído com sucesso"}), 200
 
-@app.route('/depoimento/tipo/<string:tipo_depoimento>/localidade/<int:id_localidade>', methods=["GET"])
+@depoimento_route.route('/tipo/<string:tipo_depoimento>/localidade/<int:id_localidade>', methods=["GET"])
 def getPorTipoDepoimentoPorLocalidade(tipo_depoimento, id_localidade):
     depoimentos_filtrados = Depoimento.query.filter_by(tipo_depoimento=tipo_depoimento, id_localidade=id_localidade).all()
     
@@ -180,7 +103,7 @@ def getPorTipoDepoimentoPorLocalidade(tipo_depoimento, id_localidade):
     
     return jsonify(depoimentos_dict), 200
 
-@app.route('/depoimento/localidade/<int:id_localidade>', methods=["GET"])
+@depoimento_route.route('/localidade/<int:id_localidade>', methods=["GET"])
 def getTodosTipoDepoimentoPorLocalidade(id_localidade):
     depoimentos_filtrados = Depoimento.query.filter_by(id_localidade=id_localidade).all()
     
@@ -190,10 +113,3 @@ def getTodosTipoDepoimentoPorLocalidade(id_localidade):
     depoimentos_dict = [depoimento.to_dict() for depoimento in depoimentos_filtrados]
 
     return jsonify(depoimentos_dict), 200
-
-        
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(host='localhost', debug=True)
-
