@@ -6,13 +6,13 @@ def avaliacao_texto(texto: str) -> str:
     return texto
 
 def padronizar_tipo_depoimento(tipo_depoimento: str) -> str:
-    tipoDepoimento_normalizado = avaliacao_texto(tipo_depoimento)
-    if tipoDepoimento_normalizado == 'transito':
+    tipo_depoimento_normalizado = avaliacao_texto(tipo_depoimento)
+    if tipo_depoimento_normalizado == 'transito':
         return 'Trânsito'
-    if tipoDepoimento_normalizado == 'restaurante':
+    if tipo_depoimento_normalizado == 'restaurante':
         return 'Restaurante'
-    if tipoDepoimento_normalizado == 'lazer':
+    if tipo_depoimento_normalizado == 'lazer':
         return 'Lazer'
-    if tipoDepoimento_normalizado == 'tempo':
+    if tipo_depoimento_normalizado == 'tempo':
         return 'Tempo'
     return tipo_depoimento
