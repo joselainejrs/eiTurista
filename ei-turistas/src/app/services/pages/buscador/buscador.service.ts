@@ -9,7 +9,6 @@ export class BuscadorService {
 
   urlBase: string = 'http://localhost:5000/localidade/';
   urlDepoimento: string = 'http://localhost:5000/depoimento';
-  u: string = '/depoimento/localidade/<int:localidade_id>';
 
   constructor(private http: HttpClient) { }
 

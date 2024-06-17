@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuComponent } from '../../componentes/menu/menu.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -165,7 +165,7 @@ export class BuscadorAtivoComponent {
     })
   }
 
-  public closeModal(){
+  public closeModal(): void{
     this.abrirModalFormulario = false;
     this.filtrarTodosPorLocalidade();
   }
