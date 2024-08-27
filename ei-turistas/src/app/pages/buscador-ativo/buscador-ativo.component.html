@@ -1,12 +1,10 @@
 <div class="conteudo-busca-localidade">
     <app-menu></app-menu>
-    <div>
-        <form [formGroup]="formBuscarLocalidade" (ngSubmit)="btnLocalidade()">
-            <input type="text" placeholder="Infome o nome da localidade" formControlName="localidade">
-            <button class="buscar" type="submit" [ngClass]="{'disabled': !formBuscarLocalidade.valid}"
-                [disabled]="!formBuscarLocalidade.valid">Buscar</button>
-        </form>
-    </div>
+    <form [formGroup]="formBuscarLocalidade" (ngSubmit)="btnLocalidade()">
+        <input type="text" placeholder="Infome o nome da localidade" formControlName="localidade">
+        <button class="buscar" type="submit" [ngClass]="{'disabled': !formBuscarLocalidade.valid}"
+            [disabled]="!formBuscarLocalidade.valid">Buscar</button>
+    </form>
 
     <div class="carregamento" *ngIf="loadingService.isLoading | async">
         <i class="fa-solid fa-spinner"></i>

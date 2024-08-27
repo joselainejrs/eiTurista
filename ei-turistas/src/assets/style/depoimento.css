@@ -1,7 +1,63 @@
+.campo-avaliação h1 {
+    color: var(--Blue-Normal-Text);
+    margin: 3rem 0 0 0;
+    font-weight: 400;
+}
+
+.campo-avaliação .campo-de-opcao {
+    width: 100%;
+    display: flex;
+    margin: 3rem 0 0 0;
+    justify-content: space-between;
+}
+
+.campo-avaliação .campo-de-opcao .opcao-avaliacao {
+    display: flex; 
+    margin-right: 10px;
+}
+
+.campo-avaliação .campo-de-opcao .opcao-avaliacao button{
+    border: none;
+    height: 35px;
+    padding: 0.5em;
+    cursor: pointer;
+    margin-right: 1em;;
+    border-radius: 10px;
+    background: var(--Blue-Light);
+    color: var(--Blue-Darker);
+}
+
+.campo-avaliação .campo-de-opcao .btn-avaliacao{
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--Red-Normal);
+}
+
+.campo-avaliação .campo-de-opcao .opcao-avaliacao button.active{
+    background: var(--Red-Normal);
+    color: white;
+}
+
+.campo-avaliação .campo-de-opcao .opcao-avaliacao button:hover{
+    background: var(--Blue-Light-Active);
+    color: white;
+}
+
+.campo-avaliação .campo-de-opcao .btn-avaliacaobutton:hover{
+    color: var(--Blue-Light-Active);
+}
+
+.campo-avaliação .campo-de-opcao select:active {
+    background: none;
+    border: none;
+}
+
 .depoimento {
-    width: 254px;
-    padding: 15px;
-    margin: 0 0 20px 0;
+    width: 85%;
+    padding: 0.8em;
+    margin: 0 0 2em 0;
     border-radius: 10px;
     background: var(--Blue-Light);
     color: var(--Blue-Normal-Text);
@@ -9,25 +65,24 @@
 }
 
 .tipo{
-    margin: 6px 0;
+    margin: 1em 0;
     font-weight: 200;
     text-align: justify;
-    font-size: 14px;
 }
 
 .detalhes {
-    width: 240px;
-    font-size: 13px;
-    margin: 0 0px 10px 0;
+    width: 80%;
+    margin: 0 0px 1em 0;
     text-align: justify;
 }
 
 .destaques {
     margin: 0;
     text-align: justify;
-    padding-top: 7px;
+    padding-top: 1em;
     font-weight: 300;
-    font-size: 13px;
+    font-size: 0.8rem;
+
 }
 
 .destaques p {
@@ -37,7 +92,7 @@
 .horaData {
     display: flex;
     font-weight: 200;
-    padding-top: 10px;
+    padding-top: 1em;
     justify-content: space-evenly;
 }
 
@@ -50,13 +105,14 @@
 }
 
 .acao {
-    margin-left: 12rem;
+    display: flex;
+    justify-content: end;
 }
 
 .acao button {
+    margin: 0.5em;
     cursor: pointer;
     background: none;
     border: none;
-    margin: 0;
     color: var(--Red-Normal);
 }

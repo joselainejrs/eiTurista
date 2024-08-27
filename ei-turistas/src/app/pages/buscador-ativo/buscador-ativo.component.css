@@ -1,6 +1,6 @@
 .conteudo-busca-localidade {
-    margin: 30px auto;
-    width: 900px;
+    margin: 3rem auto;
+    width: 70%;
     text-align: center;
     font-family: "Poppins", sans-serif;
 }
@@ -8,19 +8,20 @@
 .conteudo-busca-localidade input {
     color: var(--Blue-Normal-Text);
     background: var(--Blue-Light);
-    padding-left: 20px;
-    width: 270px;
+    padding-left: 1em;
+    width: 60%;
     height: 50px;
     border: none;
     border-radius: 10px;
 }
 
 .conteudo-busca-localidade .buscar {
-    width: 100px;
+    width: 15%;
     height: 50px;
     border: none;
     cursor: pointer;
-    margin-left: 30px;
+    font-size: 1rem;
+    margin-left: 3em;
     border-radius: 10px;
     color: white;
     background: var(--Red-Normal);
@@ -32,7 +33,7 @@
 }
 
 .conteudo-busca-localidade .frase{
-    margin: 9rem auto;
+    margin: 6em auto;
     color: var(--Red-Dark);
     font-weight: 600;
 }
@@ -49,7 +50,7 @@
 
 .conteudo-busca-localidade .frase .mudanca-estilo{
     color: var(--Blue-Darker);
-    margin-bottom: 2rem;
+    margin-bottom: 1em;
     font-family:"Pompiere", sans-serif;
 
 }
@@ -66,11 +67,12 @@
 .carregamento i{
     position: relative;
     text-align: center;
-    margin-top: 7rem;
+    margin-top: 6em;
 }
 
 .carregamento .fa-spinner {
-    font-size: 50px; 
+    font-size: 3.5rem; 
+    margin-top: 4em;
     color: var(--Blue-Light); 
     animation: spin 2s linear infinite;
   }
@@ -84,71 +86,15 @@
     }
   }
   
-.campo-avaliação h1 {
-    color: var(--Blue-Normal-Text);
-    margin: 3rem 0 0 0;
-    font-weight: 400;
-}
-
-.campo-avaliação .campo-de-opcao {
-    width: 922px;
-    display: flex;
-    font-size: 15px;
-    margin: 3rem 0 0 0;
-    justify-content: space-between;
-}
-
-.campo-avaliação .campo-de-opcao .opcao-avaliacao {
-    display: flex; 
-    margin-right: 10px;
-}
-
-.campo-avaliação .campo-de-opcao .opcao-avaliacao button{
-    border: none;
-    height: 35px;
-    padding: 10px;
-    cursor: pointer;
-    margin-right: 10px;
-    border-radius: 10px;
-    background: var(--Blue-Light);
-    color: var(--Blue-Darker);
-}
-
-.campo-avaliação .campo-de-opcao .opcao-avaliacao button.active{
-    background: var(--Red-Normal);
-    color: white;
-}
-
-.campo-avaliação .campo-de-opcao .opcao-avaliacao button:hover{
-    background: var(--Blue-Light-Active);
-    color: white;
-}
-
-.campo-avaliação .campo-de-opcao .btn-avaliacao{
-    border: none;
-    color: var(--Red-Normal);
-    background: none;
-    cursor: pointer;
-    margin-right: 25px;
-}
-
-.campo-avaliação .campo-de-opcao .btn-avaliacaobutton:hover{
-    color: var(--Blue-Light-Active);
-}
-
-.campo-avaliação .campo-de-opcao select:active {
-    background: none;
-    border: none;
-}
 
 .cards {
     display: grid;
-    grid-template-columns: 20rem 20rem 20rem;
+    grid-template-columns: 20em 20em 20em;
     margin: 5rem auto;
 }
 
 hr{
     margin-top: 7rem;
-    width: 1000px;
+    width: 100%;
     color: var(--Blue-Normal-Text);
 }

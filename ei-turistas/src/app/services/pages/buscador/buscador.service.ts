@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class BuscadorService {
 
   urlBase: string = 'http://localhost:5000/localidade/';
-  urlDepoimento: string = 'http://localhost:5000/depoimento';
+  urlAvaliacao: string = 'http://localhost:5000/avaliacao';
 
   constructor(private http: HttpClient) { }
 
@@ -17,11 +17,11 @@ export class BuscadorService {
   }
 
   public getFiltrarPorTipoDepoimentoPorLocalidade(tipo: string, idLocalidade: number): Observable<any> {
-    return this.http.get(`${this.urlDepoimento}/tipo/${tipo}/localidade/${idLocalidade}`)
+    return this.http.get(`${this.urlAvaliacao}/tipo/${tipo}/localidade/${idLocalidade}`)
   }
 
   public getFiltrarTodosDepoimentosPorLocalidade(idLocalidade: number): Observable<any> {
-    return this.http.get(`${this.urlDepoimento}/localidade/${idLocalidade}`)
+    return this.http.get(`${this.urlAvaliacao}/localidade/${idLocalidade}`)
   }
 
   public postDepoimento(id_localidade: number, tipo_depoimento: string, detalhes: string): Observable<any> {
@@ -31,7 +31,7 @@ export class BuscadorService {
       detalhes: detalhes
     }
 
-    return this.http.post(`${this.urlDepoimento}`, payload)
+    return this.http.post(`${this.urlAvaliacao}`, payload)
   }
 
   public patchDepoimento(id: number, tipoAvaliacao: string, detalhes: string): Observable<any> {
@@ -40,10 +40,10 @@ export class BuscadorService {
       detalhes: detalhes
     }
 
-    return this.http.patch(`${this.urlDepoimento}/${id}`, payload)
+    return this.http.patch(`${this.urlAvaliacao}/${id}`, payload)
   }
 
   public deleteDepoimento(id: number): Observable<any> {
-    return this.http.delete(`${this.urlDepoimento}/${id}`)
+    return this.http.delete(`${this.urlAvaliacao}/${id}`)
   }
 }

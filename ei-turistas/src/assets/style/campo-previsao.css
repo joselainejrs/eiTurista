@@ -1,9 +1,10 @@
 
 .campo-previsao-localidade {
     display: flex;
-    justify-content: space-evenly;
-    padding: 20px;
-    margin-top: 5rem;
+    justify-content: space-around;
+    padding: 1em;
+    margin: 5em 0;
+    text-align: center;
     border-radius: 20px;
     color: var(--Blue-Light-Active);
     background: linear-gradient(45deg, #7135BF, #351959);
@@ -11,16 +12,20 @@
 
 .campo-previsao-localidade .info-primario .localidade {
     font-weight: 300;
-    margin: 0 20px 0 0;
+    margin: 0 2em 0 0;
+    
 }
 
 .campo-previsao-localidade .info-primario .graus {
-    font: 80px "Oldenburg", serif;
-    margin: 29px 0 0 0;
+    font: 8rem "Oldenburg", serif;
+    margin: 0.2em 0 0 0;
 }
 
 .campo-previsao-localidade .info-segundario {
     font-weight: 200;
+    font-size: 1.3rem;
+    margin: auto 0;
+    
 }
 
 .campo-previsao-localidade .info-segundario .descricao {
